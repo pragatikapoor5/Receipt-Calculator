@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Calculator</title>
+    <!-- linking bootstrap css  -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div style="height: 700px;">
+            <div class="row h-100"> <!--1 row -> 3 cols-->
+                <div
+                    class="col-sm-4 d-flex flex-column align-items-center bg-dark-subtle border border-white border-5 p-0">
+                    <!--Col 1 start-->
+                    <div class="row bg-primary w-100 text-center">
+                        <div class="col">
+                            <h1>Admin</h1>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col">
+                            <p>Add a new Product</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input id="additem" type="text" placeholder="Product Name">
+                            <button type="button" onclick="addproduct()">Add Product</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>Select a product then add the price per unit</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <select id="items" class="px-5">
+                            </select>
+                            <input type="number" placeholder="Price" id="price">
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col">
+                            <button type="button" onclick="addprice()">Add Price</button>
+                        </div>
+                    </div>
+                    <div class="row my-5">
+                        <div class="col">
+                            <div id="addalert" style="color: red"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- col 1 end  -->
+                <div
+                    class="col-sm-4 d-flex flex-column align-items-center bg-dark-subtle border border-white border-5 p-0">
+                    <!--col 2 start-->
+                    <div class="row bg-primary w-100 text-center">
+                        <div class="col">
+                            <h1>Checkout</h1>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col">
+                            <button type="button" onclick="newtransaction()">New Transaction</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>Select a product then add the number of units</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <select id="transaction-items" class="px-5"></select>
+                            <label>Unit:</label>
+                            <input type="number" min="1" max="9" placeholder="0" id="addunit" disabled>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col">
+                            <button type="button" onclick="addtocart()">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <button class="px-5 mt-4" type="button" onclick="addunit(1)">1</button>
+                            <button class="px-5 mt-4" type="button" onclick="addunit(2)">2</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="px-5" type="button" onclick="addunit(3)">3</button>
+                            <button class="px-5" type="button" onclick="addunit(4)">4</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="px-5" type="button" onclick="addunit(5)">5</button>
+                            <button class="px-5" type="button" onclick="addunit(6)">6</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="px-5" type="button" onclick="addunit(7)">7</button>
+                            <button class="px-5" type="button" onclick="addunit(8)">8</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="px-5 mb-5" type="button" onclick="addunit(9)">9</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="px-3" type="button" onclick="pay()">Pay</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- col 2 end  -->
+                <div
+                    class="col-sm-4 d-flex flex-column align-items-center bg-dark-subtle border border-white border-5 p-0">
+                    <!--col 3 start-->
+                    <div class="row bg-primary w-100 text-center" id="heading">
+                        <div class="col">
+                            <h1>Receipt</h1>
+                        </div>
+                    </div>
+                    <div class="row bg-light my-3 m-0 p-0 w-75">
+                        <div class="mini-navbar d-flex flex-row align-items-center flex-wrap" id="mini-navbar">
+                            <div class="col-md-3 px-3"><strong>Product</strong></div>
+                            <div class="col-md-3 px-3"><strong>$/unit</strong></div>
+                            <div class="col-md-3 px-3"><strong>Unit(s)</strong></div>
+                            <div class="col-md-3 px-3"><strong>Price</strong></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col" id="date"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col" id="time"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col w-100 p-0" id="table">
+                                    <table id="receipt-table" border="2px" class="w-100 text-center"> <!--table in receipt-->
+                                        <tr id="row1"></tr>
+
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" id="amount">
+                                    <div class="row">
+                                        <div class="col" id="totalprice"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col" id="taxes"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col" id="amountdue"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- col 3 end  -->
+            </div>
+            <!-- 1 row end   -->
+        </div>
+    </div>
+
+    <!-- linking bootstrap js  -->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- linking js  -->
+    <script src="script.js"></script>
+</body>
+
+</html>
